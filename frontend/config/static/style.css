@@ -1,0 +1,39 @@
+body,
+.trifid-header-title,
+.trifid-header-title h1,
+.trifid-header-title-small,
+.trifid-header-title-small h1 {
+  font-family: Helvetica !important;
+}
+
+.app-name,
+.trifid-header-title h1,
+.trifid-header-title-small h1,
+.trifid-header .logo-block .separator,
+.trifid-header .logo-block .app-name {
+  font-weight: bold !important;
+}
+
+.trifid-header,
+.trifid-footer,
+.trifid-header .logo-block {
+  background-color: #fff;
+  border-bottom: none;
+}
+
+.trifid-main {
+  border-top: 2px solid rgba(0, 0, 0, .1);
+  box-sizing: border-box;
+}
+
+.trifid-content .container {
+  padding-bottom: 20px;
+}
+
+a {
+  color: #00A9FA;
+}
+
+.small {
+  font-size: 1em;
+}

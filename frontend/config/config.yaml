@@ -1,0 +1,70 @@
+server:
+  logLevel: info
+  options:
+    trustProxy: true
+
+template:
+  title: Linked Open Data (by Code for Germany)
+  disableHeader: false
+  disableFooter: false
+  files:
+    header: file:header.hbs
+    footer: file:footer.hbs
+  styles:
+    - /static-assets/style.css
+
+globals:
+  datasetBaseUrl: env:DATASET_BASE_URL
+  endpoints:
+    default:
+      url: /query
+
+plugins:
+  welcome:
+    module: trifid-core/plugins/view.js
+    paths: /
+    methods: GET
+    config:
+      path: file:welcome.hbs
+
+  static-assets:
+    module: trifid-core/plugins/static.js
+    paths: /static-assets
+    config:
+      directory: file:static
+
+  entity-renderer:
+    module: "@zazuko/trifid-entity-renderer"
+    config:
+      followRedirects: false
+      showNamedGraphs: false
+      labelLoader:
+        chunkSize: 50
+        concurrency: 2
+        timeout: 4000
+
+  yasgui:
+    module: trifid-plugin-yasgui
+    paths:
+      - /sparql
+      - /sparql/
+    config:
+      defaultQuery: |
+        SELECT {}
+
+  sparql-proxy:
+    module: "@zazuko/trifid-plugin-sparql-proxy"
+    paths: /query
+    config:
+      allowRewriteToggle: false
+      rewrite: false
+      rewriteQuery: false
+      rewriteResults: false
+      endpointUrl: env:SPARQL_ENDPOINT_URL
+      formats:
+        ttl: "text/turtle"
+        jsonld: "application/ld+json"
+        xml: "application/rdf+xml"
+        nt: "application/n-triples"
+        trig: "application/trig"
+        csv: "text/csv"

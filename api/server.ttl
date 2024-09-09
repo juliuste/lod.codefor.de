@@ -1,0 +1,26 @@
+PREFIX fuseki: <http://jena.apache.org/fuseki#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX tdb1: <http://jena.hpl.hp.com/2008/tdb#>
+PREFIX tdb2: <http://jena.apache.org/2016/tdb#>
+PREFIX ja: <http://jena.hpl.hp.com/2005/11/Assembler#>
+PREFIX : <#>
+
+# see also: https://github.com/apache/jena/tree/main/jena-fuseki2/examples
+
+[] rdf:type fuseki:Server ;
+  ja:context [ ja:cxtName "arq:queryTimeout" ; ja:cxtValue "10000" ] ;
+  ja:context [ ja:cxtName "arq:httpServiceAllowed" ; ja:cxtValue "false" ] ;
+  fuseki:services ( :service ) .
+
+:service rdf:type fuseki:Service ;
+  fuseki:name "dataset" ;
+  fuseki:endpoint [ fuseki:operation fuseki:query ; fuseki:name "sparql" ];
+  fuseki:endpoint [ fuseki:operation fuseki:gsp-r ; fuseki:name "get" ] ;
+  fuseki:dataset :dataset .
+
+:dataset rdf:type ja:RDFDataset ;
+  ja:defaultGraph [
+    a ja:MemoryModel ;
+    ja:content [ ja:externalContent <file:/app/data/vg250-ew.ttl> ]
+  ] .
