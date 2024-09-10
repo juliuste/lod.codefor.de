@@ -1,6 +1,11 @@
 name: CI
 on:
-  [push]
+  push:
+  pull_request:
+  schedule:
+    # keep request limits in mind before increasing the cron frequency
+    # * is a special character in YAML so you have to quote this string
+    - cron: '0 2 * * *'
 jobs:
   test:
     runs-on: ubuntu-latest
