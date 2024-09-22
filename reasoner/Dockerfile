@@ -1,7 +1,7 @@
 FROM ubuntu:noble
 
 USER root
-RUN apt-get update && apt-get install -y curl zip groff less
+RUN apt-get update && apt-get install -y curl s3cmd
 
 WORKDIR /app
 
@@ -14,14 +14,6 @@ RUN curl 'http://www.w3.org/2000/01/rdf-schema#' -H 'Accept: text/turtle' -L > r
 RUN curl 'http://www.opengis.net/ont/geosparql#' -H 'Accept: text/turtle' -L > geosparql.ttl
 RUN curl 'http://rdfs.co/juso/0.1.2/ttl' -H 'Accept: text/turtle' -L > juso.ttl
 RUN curl 'https://raw.githubusercontent.com/juliuste/open-data-scraper/refs/heads/main/ontologies/codeforde.ttl' -L > codeforde.ttl
-
-WORKDIR /aws
-
-RUN curl 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o 'awscliv2.zip'
-RUN unzip awscliv2.zip
-RUN ./aws/install
-
-WORKDIR /app
 
 COPY ./run.sh ./run.sh
 

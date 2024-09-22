@@ -19,20 +19,16 @@ if [ -z "$S3_BUCKET_NAME" ]; then
   exit 1
 fi
 
-mkdir ~/.aws;
 echo "
 [default]
-aws_access_key_id=$S3_ACCESS_KEY_ID
-aws_secret_access_key=$S3_SECRET_ACCESS_KEY
-" > ~/.aws/credentials;
-echo "
-[default]
-endpoint_url = $S3_ENDPOINT
-region=auto
-s3 =
-  multipart_threshold = 2000MB
-  multipart_chunksize = 2000MB
-" > ~/.aws/config;
+access_key = $S3_ACCESS_KEY_ID
+secret_key = $S3_SECRET_ACCESS_KEY
+check_ssl_certificate = True
+guess_mime_type = True
+host_base = $S3_ENDPOINT
+host_bucket = $S3_ENDPOINT
+use_https = True
+" > ~/.s3cfg;
 
 curl -L 'https://scraped.data.juliustens.eu/vg250-ew/data.ttl.gz' > vg250-ew.ttl.gz
 cat vg250-ew.ttl.gz | gunzip > vg250-ew.ttl
@@ -41,4 +37,4 @@ rm *.gz
 ./reasonable -o result.ttl codeforde.ttl juso.ttl geosparql.ttl owl.ttl rdf.ttl rdfs.ttl vg250-ew.ttl
 cat result.ttl | gzip > result.ttl.gz
 
-aws s3 cp --acl public-read result.ttl.gz s3://"$S3_BUCKET_NAME"/combined.ttl.gz
+s3cmd put --acl-public result.ttl.gz s3://"$S3_BUCKET_NAME"/combined.ttl.gz
