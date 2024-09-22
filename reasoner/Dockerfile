@@ -1,7 +1,7 @@
 FROM ubuntu:noble
 
 USER root
-RUN apt-get update && apt-get install -y curl
+RUN apt-get update && apt-get install -y curl zip groff less
 
 WORKDIR /app
 
@@ -15,10 +15,14 @@ RUN curl 'http://www.opengis.net/ont/geosparql#' -H 'Accept: text/turtle' -L > g
 RUN curl 'http://rdfs.co/juso/0.1.2/ttl' -H 'Accept: text/turtle' -L > juso.ttl
 RUN curl 'https://raw.githubusercontent.com/juliuste/open-data-scraper/refs/heads/main/ontologies/codeforde.ttl' -L > codeforde.ttl
 
+WORKDIR /aws
+
+RUN curl 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o 'awscliv2.zip'
+RUN unzip awscliv2.zip
+RUN ./aws/install
+
+WORKDIR /app
+
 COPY ./run.sh ./run.sh
 
-RUN chown -R 1000:1000 /app
-USER 1000
-
-ENV S3_BUCKET_NAME="tbd"
 ENTRYPOINT [ "./run.sh" ]
