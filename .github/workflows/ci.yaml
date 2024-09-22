@@ -29,6 +29,14 @@ jobs:
         push: false
         cache-from: type=gha
         cache-to: type=gha,mode=max
+    - name: Test (build reasoner)
+      uses: docker/build-push-action@v6
+      with:
+        context: reasoner
+        platforms: linux/amd64
+        push: false
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
 
   build-and-push:
     runs-on: ubuntu-latest
@@ -73,5 +81,14 @@ jobs:
         platforms: linux/amd64,linux/arm64
         push: true
         tags: ghcr.io/${{github.repository}}-frontend:v1_${{steps.hash.outputs.hash}}_${{steps.datetime.outputs.datetime}}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+    - name: Build and push reasoner container
+      uses: docker/build-push-action@v6
+      with:
+        context: reasoner
+        platforms: linux/amd64
+        push: true
+        tags: ghcr.io/${{github.repository}}-reasoner:v1_${{steps.hash.outputs.hash}}_${{steps.datetime.outputs.datetime}}
         cache-from: type=gha
         cache-to: type=gha,mode=max
