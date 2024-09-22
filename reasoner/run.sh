@@ -28,6 +28,7 @@ aws_secret_access_key=$S3_SECRET_ACCESS_KEY
 echo "
 [default]
 endpoint_url = $S3_ENDPOINT
+region=auto
 s3 =
   multipart_threshold = 2000MB
   multipart_chunksize = 2000MB
