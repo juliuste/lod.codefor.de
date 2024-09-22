@@ -22,5 +22,5 @@ PREFIX : <#>
 :dataset rdf:type ja:RDFDataset ;
   ja:defaultGraph [
     a ja:MemoryModel ;
-    ja:content [ ja:externalContent <file:/app/data/vg250-ew.ttl> ]
+    ja:content [ ja:externalContent <file:/app/data.ttl> ]
   ] .

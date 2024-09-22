@@ -9,14 +9,10 @@ WORKDIR /app
 # download fuseki
 ADD https://repo1.maven.org/maven2/org/apache/jena/jena-fuseki-server/5.0.0/jena-fuseki-server-5.0.0.jar fuseki-server.jar
 
-# download datasets
-RUN mkdir data
 
-## vg250-ew
-ADD https://scraped.data.juliustens.eu/vg250-ew/data.ttl.gz data/vg250-ew.ttl.gz
-RUN cat data/vg250-ew.ttl.gz | gunzip > data/vg250-ew.ttl
-
-RUN rm data/*.gz
+ADD https://scraped.data.juliustens.eu/combined.ttl.gz data.ttl.gz
+RUN cat data.ttl.gz | gunzip > data.ttl
+RUN rm *.gz
 
 COPY server.ttl .
 
