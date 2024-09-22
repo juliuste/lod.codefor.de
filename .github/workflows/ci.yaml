@@ -89,6 +89,6 @@ jobs:
         context: reasoner
         platforms: linux/amd64
         push: true
-        tags: ghcr.io/${{github.repository}}-reasoner:v1_${{steps.hash.outputs.hash}}_${{steps.datetime.outputs.datetime}}
+        tags: ghcr.io/${{github.repository}}-reasoner:v1
         cache-from: type=gha
         cache-to: type=gha,mode=max
