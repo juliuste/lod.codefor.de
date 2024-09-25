@@ -3,16 +3,13 @@ FROM eclipse-temurin:21-alpine
 USER root
 
 # hadolint ignore=DL3015,DL3018
-RUN apk add --no-cache openssl && mkdir -p /app
+RUN apk add --no-cache curl openssl && mkdir -p /app
 WORKDIR /app
 
 # download fuseki
 ADD https://repo1.maven.org/maven2/org/apache/jena/jena-fuseki-server/5.0.0/jena-fuseki-server-5.0.0.jar fuseki-server.jar
 
-
-ADD https://scraped.data.juliustens.eu/combined.ttl.gz data.ttl.gz
-RUN cat data.ttl.gz | gunzip > data.ttl
-RUN rm *.gz
+RUN curl 'https://scraped.data.juliustens.eu/combined.ttl.gz' | gunzip > data.ttl
 
 COPY server.ttl .
 
