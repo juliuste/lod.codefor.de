@@ -19,7 +19,7 @@ USER 1000
 EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=3s --retries=3 CMD wget -qO- http://localhost:8080/actuator/health/ | grep UP || exit 1
 
-ENV JAVA_OPTS="-Xmx1000m -Xms1000m"
+ENV JAVA_OPTS="-Xmx1000m"
 
 # hadolint ignore=DL3025
 CMD java $JAVA_OPTS -jar fuseki-server.jar --config=server.ttl --port=8080 --gzip=on
