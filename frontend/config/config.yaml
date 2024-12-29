@@ -27,6 +27,20 @@ plugins:
     config:
       path: file:welcome.hbs
 
+  imprint:
+    module: trifid-core/plugins/view.js
+    paths: /imprint
+    methods: GET
+    config:
+      path: file:imprint.hbs
+
+  licenses:
+    module: trifid-core/plugins/view.js
+    paths: /licenses
+    methods: GET
+    config:
+      path: file:licenses.hbs
+
   static-assets:
     module: trifid-core/plugins/static.js
     paths: /static-assets
