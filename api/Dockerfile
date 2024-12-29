@@ -9,7 +9,21 @@ WORKDIR /app
 # download fuseki
 ADD https://repo1.maven.org/maven2/org/apache/jena/jena-fuseki-server/5.0.0/jena-fuseki-server-5.0.0.jar fuseki-server.jar
 
-RUN curl 'https://scraped.data.juliustens.eu/combined.ttl.gz' | gunzip > data.ttl
+# download datasets
+RUN mkdir data
+
+## vg250-ew
+ADD https://scraped.data.juliustens.eu/vg250-ew/data.ttl.gz data/vg250-ew.ttl.gz
+RUN cat data/vg250-ew.ttl.gz | gunzip > data/vg250-ew.ttl
+
+## zhv-de
+ADD https://scraped.data.public-transport.earth/de/zhv.ttl.gz data/zhv-de.ttl.gz
+RUN cat data/zhv-de.ttl.gz | gunzip > data/zhv-de.ttl
+
+## codeforde ontology
+ADD https://raw.githubusercontent.com/juliuste/open-data-scraper/refs/heads/main/ontologies/codeforde.ttl data/codeforde.ttl
+
+RUN rm data/*.gz
 
 COPY server.ttl .
 
