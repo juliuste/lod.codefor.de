@@ -85,14 +85,16 @@ plugins:
         PREFIX wdt: <http://www.wikidata.org/prop/direct/>
         PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-        # example query: municipalities with the highest population density
-        SELECT ?municipality ?name ?population ?area (?population/(?area/1000000) as ?pplPerKm2) {
+        # example query: municipalities with the highest number of public transport stops
+        SELECT ?municipality (SAMPLE(?names) as ?name) (COUNT(?stopPlace) as ?numberOfStops) (SAMPLE(?populations) as ?population) {
           ?municipality rdf:type codeforde:Gemeinde;
-            juso:name ?name;
-            geo:hasGeometry/geo:hasMetricArea ?area;
-            gn:population ?population.
+            juso:name ?names;
+            gn:population ?populations.
+          ?stopPlace a netex:StopPlace;
+            netex:topographicPlace ?municipality.
         }
-        ORDER BY DESC(?pplPerKm2)
+        GROUP BY ?municipality
+        ORDER BY DESC(?numberOfStops)
         LIMIT 10
 
   sparql-proxy:
