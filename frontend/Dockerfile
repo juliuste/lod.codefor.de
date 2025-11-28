@@ -1,4 +1,4 @@
-FROM ghcr.io/zazuko/trifid:v5.0.6@sha256:a2f80a09696dba27b4b21fe581c9593ebf5f723ec091e3d3b237dc431b5a66ca
+FROM ghcr.io/zazuko/trifid:v5.2.0@sha256:671049552af2d14818e9c34f4ab1b03ac1797ee3dc5706db906c36223c6c16de
 
 COPY --chown=1000:1000 labelLoader.js /app/packages/entity-renderer/renderer/labels/labelLoader.js
 
