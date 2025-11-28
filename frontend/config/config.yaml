@@ -65,6 +65,7 @@ plugins:
     config:
       defaultQuery: |
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        PREFIX bahnhof: <https://lod.bahnhof.de/vocabulary/db/>
         PREFIX codeforde: <https://lod.codefor.de/vocabulary/codeforde/>
         PREFIX dbo: <https://dbpedia.org/ontology/>
         PREFIX dct: <http://purl.org/dc/terms/>
@@ -72,6 +73,7 @@ plugins:
         PREFIX geo: <http://www.opengis.net/ont/geosparql#>
         PREFIX gn: <http://www.geonames.org/ontology#>
         PREFIX juso: <http://rdfs.co/juso/>
+        PREFIX netex: <https://lod.bahnhof.de/vocabulary/netex/>
         PREFIX owl: <http://www.w3.org/2002/07/owl#>
         PREFIX ql: <http://semweb.mmlab.be/ns/ql#>
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
