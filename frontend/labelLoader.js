@@ -85,11 +85,13 @@ class LabelLoader {
     this.logger?.debug(`Fetching labels for terms without label: ${uris}`)
     const response = await this.query(`
 PREFIX schema: <http://schema.org/>
+PREFIX juso: <http://rdfs.co/juso/>
+PREFIX netex: <https://lod.bahnhof.de/vocabulary/netex/>
 
 CONSTRUCT {
   ?uri schema:name ?label .
 } WHERE {
-  ?uri schema:name ?label
+  ?uri (schema:name|netex:name|juso:name) ?label
   VALUES ?uri { ${uris} }
 }`, { ask: false, rewriteResponse: this.rewriteResponse, headers: this.headers })
     // Make sure the Content-Type is lower case and without parameters (e.g. charset)
