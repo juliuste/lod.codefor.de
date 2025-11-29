@@ -84,14 +84,17 @@ plugins:
         PREFIX status: <http://www.w3.org/2003/06/sw-vocab-status/ns#>
         PREFIX wdt: <http://www.wikidata.org/prop/direct/>
         PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+        PREFIX zhv: <https://lod.codefor.de/vocabulary/zhv/>
 
-        # example query: municipalities with the highest number of public transport stops
-        SELECT ?municipality (SAMPLE(?names) as ?name) (COUNT(?stopPlace) as ?numberOfStops) (SAMPLE(?populations) as ?population) {
+        # example query: municipalities with the highest number of active public transport stops
+        SELECT ?municipality (SAMPLE(?names) as ?name) (COUNT(?stopPlace) as ?numberOfStops) (SAMPLE(?populations) as ?population) WHERE {
           ?municipality rdf:type codeforde:Gemeinde;
             juso:name ?names;
             gn:population ?populations.
           ?stopPlace a netex:StopPlace;
-            netex:topographicPlace ?municipality.
+            netex:topographicPlace ?municipality;
+            zhv:lastOperationDate ?lastOperationDate.
+          FILTER(?lastOperationDate > now())
         }
         GROUP BY ?municipality
         ORDER BY DESC(?numberOfStops)
